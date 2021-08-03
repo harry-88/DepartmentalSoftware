@@ -1,0 +1,24 @@
+<component name="libraryTable">
+  <library name="commons-codec-1.11">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/src/sample/Dependancy/calendarfx/commons-codec-1.11.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/sample/Dependancy/calendarfx/commons-collections4-4.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/sample/Dependancy/calendarfx/commons-lang3-3.8.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/sample/Dependancy/calendarfx/controlsfx-11.1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/sample/Dependancy/calendarfx/ical4j-4.0.0-alpha2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/sample/Dependancy/calendarfx/ikonli-core-12.2.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/sample/Dependancy/calendarfx/ikonli-fontawesome-pack-12.2.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/sample/Dependancy/calendarfx/ikonli-javafx-12.2.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/sample/Dependancy/calendarfx/javafx-base-16-linux.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/sample/Dependancy/calendarfx/javafx-controls-16-linux.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/sample/Dependancy/calendarfx/javafx-graphics-16-linux.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/sample/Dependancy/calendarfx/slf4j-api-1.7.25.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/sample/Dependancy/calendarfx/threeten-extra-1.5.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/sample/Dependancy/calendarfx/view-11.10.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/src/sample/Dependancy/calendarfx/ical4j-4.0.0-alpha2.jar!/" />
+    </SOURCES>
+  </library>
+</component>

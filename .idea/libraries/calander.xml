@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="calander">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/src/sample/Dependancy/calander.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
