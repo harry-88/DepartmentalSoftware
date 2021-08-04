@@ -16,21 +16,21 @@
    <bottom>
       <AnchorPane prefHeight="359.0" prefWidth="791.0" BorderPane.alignment="CENTER">
          <children>
-            <TableView layoutX="27.0" layoutY="35.0" prefHeight="197.0" prefWidth="757.0" AnchorPane.bottomAnchor="127.0" AnchorPane.leftAnchor="27.0" AnchorPane.topAnchor="35.0">
+            <TableView fx:id="tableview" layoutX="27.0" layoutY="35.0" prefHeight="197.0" prefWidth="757.0" AnchorPane.bottomAnchor="127.0" AnchorPane.leftAnchor="27.0" AnchorPane.topAnchor="35.0">
               <columns>
-                <TableColumn prefWidth="82.0" text="ITEM NAME" />
-                  <TableColumn prefWidth="101.0" text="ITEM COMPANY" />
-                <TableColumn prefWidth="74.0" text="QUANTITY" />
-                  <TableColumn minWidth="0.0" prefWidth="66.0" text="WEIGHT" />
-                  <TableColumn prefWidth="68.0" text="BARCODE" />
-                  <TableColumn prefWidth="75.0" text="MFG DATE" />
-                  <TableColumn prefWidth="83.0" text="EXP DATE" />
-                  <TableColumn prefWidth="73.0" text="BUY PRICE" />
-                  <TableColumn minWidth="0.0" prefWidth="141.0" text="RETAIL PRICE" />
+                <TableColumn fx:id="itemNameCol" prefWidth="82.0" text="ITEM NAME" />
+                  <TableColumn fx:id="itemCompanyCol" prefWidth="101.0" text="ITEM COMPANY" />
+                <TableColumn fx:id="itemQtyCol" prefWidth="74.0" text="QUANTITY" />
+                  <TableColumn fx:id="itemWeightCol" minWidth="0.0" prefWidth="66.0" text="WEIGHT" />
+                  <TableColumn fx:id="itemBarcodeCol" prefWidth="68.0" text="BARCODE" />
+                  <TableColumn fx:id="itemMfgCol" prefWidth="75.0" text="MFG DATE" />
+                  <TableColumn fx:id="itemExpCol" prefWidth="83.0" text="EXP DATE" />
+                  <TableColumn fx:id="itemBuyPriceCol" prefWidth="73.0" text="BUY PRICE" />
+                  <TableColumn fx:id="itemRetailPriceCol" minWidth="0.0" prefWidth="141.0" text="RETAIL PRICE" />
               </columns>
             </TableView>
-            <Button layoutX="322.0" layoutY="267.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="74.0" text="REMOVE" AnchorPane.bottomAnchor="67.0" AnchorPane.leftAnchor="322.0" AnchorPane.rightAnchor="388.0" AnchorPane.topAnchor="267.0" />
-            <Button layoutX="437.0" layoutY="267.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="89.0" text="UPDATE" AnchorPane.bottomAnchor="67.0" AnchorPane.leftAnchor="437.0" AnchorPane.rightAnchor="258.0" AnchorPane.topAnchor="267.0" />
+            <Button layoutX="322.0" layoutY="267.0" mnemonicParsing="false" onAction="#removeItem" prefHeight="25.0" prefWidth="74.0" text="REMOVE" AnchorPane.bottomAnchor="67.0" AnchorPane.leftAnchor="322.0" AnchorPane.rightAnchor="388.0" AnchorPane.topAnchor="267.0" />
+            <Button layoutX="437.0" layoutY="267.0" mnemonicParsing="false" onAction="#updateItem" prefHeight="25.0" prefWidth="89.0" text="UPDATE" AnchorPane.bottomAnchor="67.0" AnchorPane.leftAnchor="437.0" AnchorPane.rightAnchor="258.0" AnchorPane.topAnchor="267.0" />
          </children>
          <BorderPane.margin>
             <Insets right="10.0" />
@@ -40,27 +40,28 @@
    <center>
       <AnchorPane prefHeight="218.0" prefWidth="791.0" BorderPane.alignment="CENTER">
          <children>
-            <TextField layoutX="14.0" layoutY="23.0" promptText="ITEM NAME" AnchorPane.leftAnchor="14.0" />
-            <TextField layoutX="182.0" layoutY="23.0" promptText="ITEM QUANTITY" AnchorPane.leftAnchor="182.0" />
-            <TextField layoutX="348.0" layoutY="23.0" promptText="ITEM COMPANY" AnchorPane.leftAnchor="348.0" />
-            <DatePicker layoutX="175.0" layoutY="69.0" prefHeight="25.0" prefWidth="163.0" promptText="MFG DATE" AnchorPane.leftAnchor="175.0" AnchorPane.topAnchor="69.0" />
-            <DatePicker layoutX="348.0" layoutY="69.0" prefHeight="25.0" prefWidth="154.0" promptText="EXP DATE" AnchorPane.leftAnchor="348.0" AnchorPane.topAnchor="69.0" />
-            <ComboBox editable="true" layoutX="526.0" layoutY="23.0" prefWidth="150.0" promptText="MEASUE IN" AnchorPane.leftAnchor="526.0" AnchorPane.topAnchor="23.0" />
-            <TextField fx:id="barcodeField" layoutX="14.0" layoutY="69.0" onKeyPressed="#onBarcodeScan" onKeyTyped="#onBarcodeScan" promptText="BARCODE" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="69.0" />
-            <TextField layoutX="526.0" layoutY="69.0" prefHeight="25.0" prefWidth="97.0" promptText="RETAIL PRICE" AnchorPane.leftAnchor="526.0" AnchorPane.topAnchor="69.0" />
-            <Label layoutX="623.0" layoutY="72.0" text=".Rs" AnchorPane.leftAnchor="623.0" AnchorPane.topAnchor="72.0">
+            <TextField fx:id="itemNameField" layoutX="14.0" layoutY="23.0" promptText="ITEM NAME" AnchorPane.leftAnchor="14.0" />
+            <TextField fx:id="itemQtyField" layoutX="182.0" layoutY="23.0" promptText="ITEM QUANTITY" AnchorPane.leftAnchor="182.0" />
+            <TextField fx:id="itemCompanyField" layoutX="348.0" layoutY="23.0" promptText="ITEM COMPANY" AnchorPane.leftAnchor="348.0" />
+            <TextField fx:id="barcodeField" layoutX="535.0" layoutY="23.0" onKeyPressed="#onBarcodeScan" onKeyTyped="#onBarcodeScan" promptText="BARCODE" AnchorPane.leftAnchor="535.0" AnchorPane.topAnchor="23.0" />
+            <TextField fx:id="itemweightField" layoutX="14.0" layoutY="69.0" promptText="weight" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="69.0" />
+            <ComboBox fx:id="measureInCombo" editable="true" layoutX="182.0" layoutY="69.0" prefWidth="150.0" promptText="MEASUE IN" AnchorPane.leftAnchor="182.0" AnchorPane.topAnchor="69.0" />
+            <DatePicker fx:id="mfgDatePicker" layoutX="348.0" layoutY="69.0" prefHeight="25.0" prefWidth="163.0" promptText="MFG DATE" AnchorPane.leftAnchor="348.0" AnchorPane.topAnchor="69.0" />
+            <DatePicker fx:id="expDatePicker" layoutX="533.0" layoutY="69.0" prefHeight="25.0" prefWidth="154.0" promptText="EXP DATE" AnchorPane.leftAnchor="533.0" AnchorPane.topAnchor="69.0" />
+            <TextField fx:id="retailPricePicker" layoutX="14.0" layoutY="111.0" prefHeight="25.0" prefWidth="97.0" promptText="RETAIL PRICE" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="111.0" />
+            <Label layoutX="111.0" layoutY="114.0" text=".Rs" AnchorPane.leftAnchor="111.0" AnchorPane.topAnchor="114.0">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField layoutX="14.0" layoutY="110.0" prefHeight="25.0" prefWidth="97.0" promptText="BUY PRICE" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="110.0" />
-            <Label layoutX="111.0" layoutY="113.0" text=".Rs" AnchorPane.leftAnchor="111.0" AnchorPane.topAnchor="113.0">
+            <TextField fx:id="buyPricdPicker" layoutX="182.0" layoutY="111.0" prefHeight="25.0" prefWidth="97.0" promptText="BUY PRICE" AnchorPane.leftAnchor="182.0" AnchorPane.topAnchor="111.0" />
+            <Label layoutX="279.0" layoutY="114.0" text=".Rs" AnchorPane.leftAnchor="279.0" AnchorPane.topAnchor="114.0">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Button layoutX="163.0" layoutY="133.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="103.0" text="CLEAR" AnchorPane.leftAnchor="163.0" AnchorPane.topAnchor="133.0" />
-            <Button layoutX="297.0" layoutY="133.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="103.0" text="ADD STOCK" AnchorPane.leftAnchor="297.0" AnchorPane.topAnchor="133.0" />
+            <Button layoutX="237.0" layoutY="158.0" mnemonicParsing="false" onAction="#clearFields" prefHeight="25.0" prefWidth="103.0" text="CLEAR" AnchorPane.leftAnchor="237.0" AnchorPane.topAnchor="158.0" />
+            <Button layoutX="365.0" layoutY="158.0" mnemonicParsing="false" onAction="#addStock" prefHeight="25.0" prefWidth="103.0" text="ADD STOCK" AnchorPane.leftAnchor="365.0" AnchorPane.topAnchor="158.0" />
          </children>
       </AnchorPane>
    </center>
