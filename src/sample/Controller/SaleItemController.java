@@ -93,10 +93,13 @@ public class SaleItemController  implements Initializable{
                 }
                 else
                 {
+
+                    boolean flag = true;
                     for (int i = 0;i<tableView.getItems().size();i++)
                     {
                         if (barcodefield.getText().equals(tableView.getItems().get(i).getItemBarcode()))
                         {
+                            flag = false;
                             int qty = Integer.parseInt(tableView.getItems().get(i).getItemQuantity());
                             ++qty;
                             stoke.setItemQuantity(qty+"");
@@ -105,6 +108,7 @@ public class SaleItemController  implements Initializable{
                             double price = Double.parseDouble(totalAmountField.getText());
                             price += Double.parseDouble(stoke.getItemRetailPrice());
                             totalAmountField.setText(price + "");
+
 
                             stoke.setItemRetailPrice((Double.parseDouble(stoke.getItemRetailPrice())*qty )+"");
 
@@ -115,29 +119,44 @@ public class SaleItemController  implements Initializable{
 
 
                         }
-                        else
-                        {
-                            stoke.setItemQuantity(1+"");
-                            itemQtyField.setText(tableView.getItems().size() + "");
-                            double price = Double.parseDouble(totalAmountField.getText());
-                            price += Double.parseDouble(stoke.getItemRetailPrice());
-                            totalAmountField.setText(price + "");
 
-                            tableView.getItems().add(stoke);
-                            itemNameCol.setCellValueFactory(new PropertyValueFactory<Stoke, String>("itemName"));
-                            itemQtyCol.setCellValueFactory(new PropertyValueFactory<Stoke, String>("itemQuantity"));
-                            itemPriceCol.setCellValueFactory(new PropertyValueFactory<Stoke, String>("itemRetailPrice"));
-                        }
+                    }
+
+                    if (flag)
+                    {
+                        stoke.setItemQuantity(1+"");
+                        itemQtyField.setText(tableView.getItems().size() + "");
+                        double price = Double.parseDouble(totalAmountField.getText());
+                        price += Double.parseDouble(stoke.getItemRetailPrice());
+                        totalAmountField.setText(price + "");
+
+
+                        tableView.getItems().add(stoke);
+                        itemNameCol.setCellValueFactory(new PropertyValueFactory<Stoke, String>("itemName"));
+                        itemQtyCol.setCellValueFactory(new PropertyValueFactory<Stoke, String>("itemQuantity"));
+                        itemPriceCol.setCellValueFactory(new PropertyValueFactory<Stoke, String>("itemRetailPrice"));
                     }
                 }
 
             }
+
+            barcodefield.clear();
         }
 
     }
 
     @FXML
     void clearScreen(ActionEvent event) {
+
+        tableView.getItems().clear();
+        totalAmountField.clear();
+        discountField.clear();
+        extraChargesField.clear();
+        taxAmountField.clear();
+        netAmountField.clear();
+        itemQtyField.clear();
+        givenAmountField.clear();
+        remainingField.clear();
 
     }
 
@@ -156,7 +175,26 @@ public class SaleItemController  implements Initializable{
     @FXML
     void extraCharges(KeyEvent event) {
 
+
+        netAmountField.setText((Double.parseDouble(netAmountField.getText()) + Double.parseDouble(extraChargesField.getText()))+"");
+
     }
+
+
+    @FXML
+    void discount(KeyEvent event) {
+
+        if (Double.parseDouble(discountField.getText()) <= 100)
+            netAmountField.setText(((Double.parseDouble(netAmountField.getText()) * Double.parseDouble(discountField.getText()))/100)+"");
+        else
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR,"you have entered an in-valid discount");
+            alert.setHeaderText(null);
+            alert.showAndWait();
+        }
+    }
+
+
 
     @FXML
     void findItem(ActionEvent event) {
@@ -168,6 +206,7 @@ public class SaleItemController  implements Initializable{
     @FXML
     void givenAmount(KeyEvent event) {
 
+        remainingField.setText(""+(Double.parseDouble(netAmountField.getText())-Double.parseDouble(givenAmountField.getText())));
     }
 
     @FXML
@@ -188,6 +227,11 @@ public class SaleItemController  implements Initializable{
         System.out.println("table view size "+tableView.getItems().size());
         totalAmountField.setText("0.0");
         itemQtyField.setText("0");
+        netAmountField.setText("0.0");
+        extraChargesField.setText("0.0");
+        remainingField.setText("0.0");
+        taxAmountField.setText("0.0");
+        discountField.setText("0.0");
 
         findItem.setVisible(false);
         btnClose.setVisible(false);
@@ -199,7 +243,8 @@ public class SaleItemController  implements Initializable{
 
                 Stoke stoke = event.getRowValue();
 
-                double price = Double.parseDouble(stoke.getItemRetailPrice());
+
+                double price = Double.parseDouble(databaseHandler.getCurrantStokeByBarcode(stoke.getItemBarcode()).getItemRetailPrice());
                 double amountInField = Double.parseDouble(totalAmountField.getText());
 
                 if(Integer.parseInt(event.getNewValue()) > Integer.parseInt(event.getOldValue())) {
@@ -212,6 +257,7 @@ public class SaleItemController  implements Initializable{
                     double totalPrice = Double.parseDouble(totalAmountField.getText());
                     totalPrice += price;
                     totalAmountField.setText(totalPrice + "");
+                    stoke.setItemRetailPrice(price+"");
 
                     stoke.setItemQuantity(event.getNewValue());
                     tableView.getItems().remove(stoke);
