@@ -126,23 +126,57 @@ public class Add_StokeController implements Initializable {
             else
             {
                 String weight = itemweightField.getText();
-                weight += measureInCombo.getEditor().getText();
+
+                Date date = new Date();
 
                 Stoke stoke = new Stoke(itemNameField.getText(),itemQtyField.getText(),itemCompanyField.getText()
-                        ,barcodeField.getText(),weight,expDate+"",mfgDate+"",
-                        buyPricdPicker.getText(),retailPricePicker.getText());
-                databaseHandler.AddStoke(stoke);
-                tableview.getItems().add(stoke);
-                itemNameCol.setCellValueFactory(new PropertyValueFactory<String,String>("itemName"));
-                itemCompanyCol.setCellValueFactory(new PropertyValueFactory<String,String>("itemCompany"));
-                itemQtyCol.setCellValueFactory(new PropertyValueFactory<String,String>("itemQuantity"));
-                itemBarcodeCol.setCellValueFactory(new PropertyValueFactory<String,String>("itemBarcode"));
-                itemWeightCol.setCellValueFactory(new PropertyValueFactory<String,String>("itemWeight"));
-                itemExpCol.setCellValueFactory(new PropertyValueFactory<String,String>("itemexpDate"));
-                itemMfgCol.setCellValueFactory(new PropertyValueFactory<String,String>("itemmfgDate"));
-                itemBuyPriceCol.setCellValueFactory(new PropertyValueFactory<String,String>("itembuyPrice"));
-                itemRetailPriceCol.setCellValueFactory(new PropertyValueFactory<String,String>("itemRetailPrice"));
+                        ,barcodeField.getText(),weight,measureInCombo.getSelectionModel().getSelectedItem()+"",expDate+"",mfgDate+"",
+                        buyPricdPicker.getText(),retailPricePicker.getText(),date+"");
+                if(tableview.getItems().size() > -1)
+                {
+                    boolean flag = true;
+                    for (int i = 0;i<tableview.getItems().size();i++)
+                    {
+                        if (barcodeField.getText().equals(tableview.getItems().get(i).getItemBarcode()))
+                        {
+                            int quantityInDatabase = Integer.parseInt(tableview.getItems().get(i).getItemQuantity());
+                            int quantityEntered= Integer.parseInt(itemQtyField.getText());
+                            databaseHandler.updateStockQuantity((quantityEntered+quantityInDatabase),barcodeField.getText());
+                            stoke.setItemQuantity((Integer.parseInt(stoke.getItemQuantity())+(quantityInDatabase) )+"");
 
+                            tableview.getItems().set(i,stoke);
+                            flag = false;
+                        }
+
+                    }
+                    if (flag){
+
+                        databaseHandler.AddStoke(stoke);
+                        tableview.getItems().add(stoke);
+                        itemNameCol.setCellValueFactory(new PropertyValueFactory<String, String>("itemName"));
+                        itemCompanyCol.setCellValueFactory(new PropertyValueFactory<String, String>("itemCompany"));
+                        itemQtyCol.setCellValueFactory(new PropertyValueFactory<String, String>("itemQuantity"));
+                        itemBarcodeCol.setCellValueFactory(new PropertyValueFactory<String, String>("itemBarcode"));
+                        itemWeightCol.setCellValueFactory(new PropertyValueFactory<String, String>("itemWeight"));
+                        itemExpCol.setCellValueFactory(new PropertyValueFactory<String, String>("itemexpDate"));
+                        itemMfgCol.setCellValueFactory(new PropertyValueFactory<String, String>("itemmfgDate"));
+                        itemBuyPriceCol.setCellValueFactory(new PropertyValueFactory<String, String>("itembuyPrice"));
+                        itemRetailPriceCol.setCellValueFactory(new PropertyValueFactory<String, String>("itemRetailPrice"));
+                    }
+
+                }else {
+                    databaseHandler.AddStoke(stoke);
+                    tableview.getItems().add(stoke);
+                    itemNameCol.setCellValueFactory(new PropertyValueFactory<String, String>("itemName"));
+                    itemCompanyCol.setCellValueFactory(new PropertyValueFactory<String, String>("itemCompany"));
+                    itemQtyCol.setCellValueFactory(new PropertyValueFactory<String, String>("itemQuantity"));
+                    itemBarcodeCol.setCellValueFactory(new PropertyValueFactory<String, String>("itemBarcode"));
+                    itemWeightCol.setCellValueFactory(new PropertyValueFactory<String, String>("itemWeight"));
+                    itemExpCol.setCellValueFactory(new PropertyValueFactory<String, String>("itemexpDate"));
+                    itemMfgCol.setCellValueFactory(new PropertyValueFactory<String, String>("itemmfgDate"));
+                    itemBuyPriceCol.setCellValueFactory(new PropertyValueFactory<String, String>("itembuyPrice"));
+                    itemRetailPriceCol.setCellValueFactory(new PropertyValueFactory<String, String>("itemRetailPrice"));
+                }
             }
         }
         clearEnteredFields();
@@ -224,8 +258,10 @@ public class Add_StokeController implements Initializable {
                 retailPricePicker.setText(stoke.getItemRetailPrice());
                 buyPricdPicker.setText(stoke.getItembuyPrice());
                 expDatePicker.getEditor().setText(stoke.getItemexpDate());
+//                expDatePicker.setValue((LocalDate)stoke.getItemexpDate());
                 mfgDatePicker.getEditor().setText(stoke.getItemmfgDate());
 
+//                mfgDatePicker.setValue((LocalDate)stoke.getItemmfgDate());
             }
         }
     }

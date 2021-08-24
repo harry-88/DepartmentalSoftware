@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="479.0" prefWidth="679.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.ShowEmployee">
+   <children>
+      <TextField fx:id="sortField" layoutX="34.0" layoutY="94.0" onKeyPressed="#sortEmployee" promptText="Sort employee" AnchorPane.leftAnchor="34.0" AnchorPane.topAnchor="94.0" />
+      <TableView fx:id="tableView" layoutX="28.0" layoutY="189.0" prefHeight="200.0" prefWidth="309.0" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="28.0" AnchorPane.topAnchor="189.0">
+        <columns>
+          <TableColumn fx:id="employeeIdCol" prefWidth="93.0" text="Employee ID" />
+          <TableColumn fx:id="employeeNameCol" prefWidth="103.0" text="Employee Name" />
+            <TableColumn fx:id="employeePositionCol" prefWidth="112.0" text="Employee Position" />
+        </columns>
+      </TableView>
+      <Button layoutX="183.0" layoutY="398.0" mnemonicParsing="false" onAction="#viewDetail" text="View Detail" AnchorPane.bottomAnchor="56.0" AnchorPane.leftAnchor="183.0" />
+      <Separator layoutX="352.0" layoutY="40.0" orientation="VERTICAL" prefHeight="410.0" prefWidth="17.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="352.0" AnchorPane.topAnchor="40.0" />
+      <GridPane layoutX="378.0" layoutY="94.0" prefHeight="270.0" prefWidth="272.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label prefHeight="32.0" prefWidth="140.0" text="Employee Name" />
+            <TextField fx:id="employeeNameField" GridPane.columnIndex="1" />
+            <TextField fx:id="employeePositionField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="employeeSalaryField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="employeeGenderField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="employeeDobField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="employeeNumberField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="employeeAddressField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="employeeEmailField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <Label prefHeight="32.0" prefWidth="140.0" text="Employee Position" GridPane.rowIndex="1" />
+            <Label prefHeight="32.0" prefWidth="140.0" text="Employee Salary" GridPane.rowIndex="2" />
+            <Label prefHeight="32.0" prefWidth="140.0" text="Employee Gender" GridPane.rowIndex="3" />
+            <Label prefHeight="32.0" prefWidth="140.0" text="Employee DOB" GridPane.rowIndex="4" />
+            <Label prefHeight="32.0" prefWidth="140.0" text="Employee Number" GridPane.rowIndex="5" />
+            <Label prefHeight="32.0" prefWidth="140.0" text="Employee Address" GridPane.rowIndex="6" />
+            <Label prefHeight="32.0" prefWidth="140.0" text="Employee Email" GridPane.rowIndex="7" />
+         </children>
+      </GridPane>
+      <Button layoutX="531.0" layoutY="398.0" mnemonicParsing="false" onAction="#removeField" text="Remove Employee" />
+   </children>
+</AnchorPane>

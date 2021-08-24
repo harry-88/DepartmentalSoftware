@@ -19,8 +19,8 @@ public class DatabaseHandler {
     public boolean AddStoke(Stoke stoke)
     {
 
-        String query = "INSERT INTO Stoke(barcode,itemname,itemcompany" +
-                ",itemquantity,weight,mfgDate,expDate,buyPrice,retailPrice)VALUES(?,?,?,?,?,?,?,?,?)";
+        String query = "INSERT INTO Stock(barcode,itemname,itemcompany" +
+                ",itemquantity,weight,mfgDate,expDate,buyPrice,retailPrice,stockDate,measurein)VALUES(?,?,?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1,stoke.getItemBarcode());
@@ -32,6 +32,8 @@ public class DatabaseHandler {
             preparedStatement.setString(7,stoke.getItemexpDate());
             preparedStatement.setString(8,stoke.getItembuyPrice());
             preparedStatement.setString(9,stoke.getItemRetailPrice());
+            preparedStatement.setString(10,stoke.getAddDate());
+            preparedStatement.setString(11,stoke.getMeasurein());
             if (!preparedStatement.execute())
                 return true;
         } catch (SQLException throwables) {
@@ -44,16 +46,17 @@ public class DatabaseHandler {
     {
 
         ArrayList<Stoke> itemArrayList = new ArrayList<>();
-        String query = "SELECT * FROM stoke" ;
+        String query = "SELECT * FROM stock" ;
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery();
-            while(resultSet.next()){
+            while(resultSet != null && resultSet.next() ){
                 Stoke item = new Stoke(resultSet.getString(2),resultSet.getString(4),
                         resultSet.getString(3),resultSet.getString(1)
-                        ,resultSet.getString(5),resultSet.getString(7),
-                        resultSet.getString(6),resultSet.getString(8)
-                        ,resultSet.getString(9));
+                        ,resultSet.getString(5),resultSet.getString(6),
+                        resultSet.getString(8),resultSet.getString(7),resultSet.getString(9),
+                        resultSet.getString(10),resultSet.getString(11)
+                );
 
                 itemArrayList.add(item);
 
@@ -65,23 +68,21 @@ public class DatabaseHandler {
         return itemArrayList;
     }
 
-
     public Stoke getCurrantStokeByBarcode(String barcode)
     {
-        String query = "SELECT * FROM stoke WHERE barcode =?";
+        String query = "SELECT * FROM stock WHERE barcode =?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1,barcode);
             ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.absolute(1);
-            if (resultSet != null)
+            if (resultSet != null && resultSet.next())
             {
                 if (resultSet.getString(1).equals(barcode)) {
                     Stoke item = new Stoke(resultSet.getString(2),resultSet.getString(4),
                             resultSet.getString(3),resultSet.getString(1)
-                            ,resultSet.getString(5),resultSet.getString(7),
-                            resultSet.getString(6),resultSet.getString(8)
-                            ,resultSet.getString(9));
+                            ,resultSet.getString(5),resultSet.getString(6),
+                            resultSet.getString(8),resultSet.getString(7),resultSet.getString(9),
+                            resultSet.getString(10),resultSet.getString(11));
 
                     return item;
                 }
@@ -92,5 +93,20 @@ public class DatabaseHandler {
             throwables.printStackTrace();
         }
         return null;
+    }
+
+    public  boolean updateStockQuantity(int quantity,String barcode)
+    {
+        String query = "UPDATE stock SET itemquantity=? WHERE barcode=?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1,quantity+"");
+            preparedStatement.setString(2,barcode);
+            if (!preparedStatement.execute())
+                return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

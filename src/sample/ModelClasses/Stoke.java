@@ -6,21 +6,25 @@ public class Stoke {
     private String itemCompany;
     private String itemBarcode;
     private String itemWeight;
+    private String measurein;
     private String itemexpDate;
     private String itemmfgDate;
     private String itembuyPrice;
     private String itemRetailPrice;
+    private String addDate;
 
-    public Stoke(String itemName, String itemQuantity, String itemCompany, String itemBarcode, String itemWeight, String itemexpDate, String itemmfgDate, String itembuyPrice, String itemRetailPrice) {
+    public Stoke(String itemName, String itemQuantity, String itemCompany, String itemBarcode, String itemWeight, String measurein, String itemexpDate, String itemmfgDate, String itembuyPrice, String itemRetailPrice, String addDate) {
         this.itemName = itemName;
         this.itemQuantity = itemQuantity;
         this.itemCompany = itemCompany;
         this.itemBarcode = itemBarcode;
         this.itemWeight = itemWeight;
+        this.measurein = measurein;
         this.itemexpDate = itemexpDate;
         this.itemmfgDate = itemmfgDate;
         this.itembuyPrice = itembuyPrice;
         this.itemRetailPrice = itemRetailPrice;
+        this.addDate = addDate;
     }
 
     public String getItemName() {
@@ -63,6 +67,14 @@ public class Stoke {
         this.itemWeight = itemWeight;
     }
 
+    public String getMeasurein() {
+        return measurein;
+    }
+
+    public void setMeasurein(String measurein) {
+        this.measurein = measurein;
+    }
+
     public String getItemexpDate() {
         return itemexpDate;
     }
@@ -95,6 +107,14 @@ public class Stoke {
         this.itemRetailPrice = itemRetailPrice;
     }
 
+    public String getAddDate() {
+        return addDate;
+    }
+
+    public void setAddDate(String addDate) {
+        this.addDate = addDate;
+    }
+
     @Override
     public String toString() {
         return "Stoke{" +
@@ -103,10 +123,12 @@ public class Stoke {
                 ", itemCompany='" + itemCompany + '\'' +
                 ", itemBarcode='" + itemBarcode + '\'' +
                 ", itemWeight='" + itemWeight + '\'' +
+                ", measurein='" + measurein + '\'' +
                 ", itemexpDate='" + itemexpDate + '\'' +
                 ", itemmfgDate='" + itemmfgDate + '\'' +
                 ", itembuyPrice='" + itembuyPrice + '\'' +
                 ", itemRetailPrice='" + itemRetailPrice + '\'' +
+                ", addDate='" + addDate + '\'' +
                 '}';
     }
 }

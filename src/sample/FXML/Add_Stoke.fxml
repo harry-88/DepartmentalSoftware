@@ -40,10 +40,10 @@
    <center>
       <AnchorPane prefHeight="218.0" prefWidth="791.0" BorderPane.alignment="CENTER">
          <children>
-            <TextField fx:id="itemNameField" layoutX="14.0" layoutY="23.0" promptText="ITEM NAME" AnchorPane.leftAnchor="14.0" />
-            <TextField fx:id="itemQtyField" layoutX="182.0" layoutY="23.0" promptText="ITEM QUANTITY" AnchorPane.leftAnchor="182.0" />
-            <TextField fx:id="itemCompanyField" layoutX="348.0" layoutY="23.0" promptText="ITEM COMPANY" AnchorPane.leftAnchor="348.0" />
-            <TextField fx:id="barcodeField" layoutX="535.0" layoutY="23.0" onKeyPressed="#onBarcodeScan" onKeyTyped="#onBarcodeScan" promptText="BARCODE" AnchorPane.leftAnchor="535.0" AnchorPane.topAnchor="23.0" />
+            <TextField fx:id="barcodeField" layoutX="14.0" layoutY="23.0" onKeyPressed="#onBarcodeScan" onKeyTyped="#onBarcodeScan" promptText="BARCODE" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="23.0" />
+            <TextField fx:id="itemNameField" layoutX="183.0" layoutY="23.0" promptText="ITEM NAME" AnchorPane.leftAnchor="183.0" />
+            <TextField fx:id="itemQtyField" layoutX="355.0" layoutY="23.0" promptText="ITEM QUANTITY" AnchorPane.leftAnchor="355.0" />
+            <TextField fx:id="itemCompanyField" layoutX="536.0" layoutY="23.0" promptText="ITEM COMPANY" AnchorPane.leftAnchor="536.0" />
             <TextField fx:id="itemweightField" layoutX="14.0" layoutY="69.0" promptText="weight" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="69.0" />
             <ComboBox fx:id="measureInCombo" editable="true" layoutX="182.0" layoutY="69.0" prefWidth="150.0" promptText="MEASUE IN" AnchorPane.leftAnchor="182.0" AnchorPane.topAnchor="69.0" />
             <DatePicker fx:id="mfgDatePicker" layoutX="348.0" layoutY="69.0" prefHeight="25.0" prefWidth="163.0" promptText="MFG DATE" AnchorPane.leftAnchor="348.0" AnchorPane.topAnchor="69.0" />

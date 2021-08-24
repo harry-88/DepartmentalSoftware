@@ -22,22 +22,22 @@
         <menus>
           <Menu mnemonicParsing="false" text="Option">
             <items>
-              <MenuItem mnemonicParsing="false" text="Find Item" />
-                  <MenuItem mnemonicParsing="false" text="Clear" />
-                  <MenuItem mnemonicParsing="false" text="Close" />
+              <MenuItem mnemonicParsing="false" onAction="#findItem" text="Find Item" />
+                  <MenuItem mnemonicParsing="false" onAction="#clearScreen" text="Clear" />
+                  <MenuItem mnemonicParsing="false" onAction="#closeWindow" text="Close" />
             </items>
           </Menu>
         </menus>
       </MenuBar>
-      <TableView layoutX="28.0" layoutY="202.0" prefHeight="200.0" prefWidth="413.0" style="-fx-border-color: black; -fx-effect: black;" AnchorPane.leftAnchor="28.0">
+      <TableView fx:id="tableView" layoutX="28.0" layoutY="202.0" prefHeight="200.0" prefWidth="413.0" style="-fx-border-color: black; -fx-effect: black;" AnchorPane.leftAnchor="28.0">
         <columns>
-          <TableColumn prefWidth="137.0" text="Item Name" />
-          <TableColumn prefWidth="122.0" text="Item Qty" />
-            <TableColumn prefWidth="153.0" text="Item Price" />
+          <TableColumn fx:id="itemNameCol" prefWidth="137.0" text="Item Name" />
+          <TableColumn fx:id="itemQtyCol" prefWidth="122.0" text="Item Qty" />
+            <TableColumn fx:id="itemPriceCol" prefWidth="153.0" text="Item Price" />
         </columns>
       </TableView>
-      <TextField layoutX="22.0" layoutY="104.0" onKeyPressed="#barcodeRead" promptText="Barcode" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="104.0" />
-      <Separator layoutX="459.0" layoutY="46.0" orientation="VERTICAL" prefHeight="483.0" prefWidth="0.0" AnchorPane.bottomAnchor="31.0" AnchorPane.leftAnchor="459.0" AnchorPane.topAnchor="46.0" />
+      <TextField fx:id="barcodefield" layoutX="22.0" layoutY="104.0" onKeyPressed="#barcodeRead" promptText="Barcode" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="104.0" />
+      <Separator layoutX="453.0" layoutY="49.0" orientation="VERTICAL" prefHeight="483.0" prefWidth="0.0" AnchorPane.bottomAnchor="28.0" AnchorPane.leftAnchor="453.0" AnchorPane.topAnchor="49.0" />
       <GridPane layoutX="509.0" layoutY="104.0" prefHeight="232.0" prefWidth="261.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="104.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -76,27 +76,27 @@
                <GridPane.margin>
                   <Insets bottom="10.0" />
                </GridPane.margin></Label>
-            <TextField editable="false" prefHeight="52.0" prefWidth="136.0" GridPane.columnIndex="1">
+            <TextField fx:id="itemQtyField" editable="false" prefHeight="52.0" prefWidth="136.0" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets bottom="10.0" />
                </GridPane.margin></TextField>
-            <TextField editable="false" prefHeight="52.0" prefWidth="136.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <TextField fx:id="totalAmountField" editable="false" prefHeight="52.0" prefWidth="136.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets bottom="10.0" />
                </GridPane.margin></TextField>
-            <TextField editable="false" prefHeight="52.0" prefWidth="136.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <TextField fx:id="extraChargesField" onKeyPressed="#extraCharges" prefHeight="52.0" prefWidth="136.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets bottom="10.0" />
                </GridPane.margin></TextField>
-            <TextField editable="false" prefHeight="52.0" prefWidth="136.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <TextField fx:id="discountField" prefHeight="52.0" prefWidth="136.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets bottom="10.0" />
                </GridPane.margin></TextField>
-            <TextField editable="false" prefHeight="52.0" prefWidth="136.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <TextField fx:id="taxAmountField" editable="false" prefHeight="52.0" prefWidth="136.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets bottom="10.0" />
                </GridPane.margin></TextField>
-            <TextField editable="false" prefHeight="52.0" prefWidth="136.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <TextField fx:id="netAmountField" editable="false" prefHeight="52.0" prefWidth="136.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                <GridPane.margin>
                   <Insets bottom="10.0" />
                </GridPane.margin></TextField>
@@ -104,16 +104,24 @@
       </GridPane>
       <Separator layoutX="489.0" layoutY="363.0" prefHeight="7.0" prefWidth="277.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="363.0" />
       <Label layoutX="489.0" layoutY="370.0" prefHeight="37.0" prefWidth="87.0" text="Transection" AnchorPane.rightAnchor="214.0" AnchorPane.topAnchor="370.0" />
-      <TextField layoutX="614.0" layoutY="408.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="408.0" />
+      <TextField fx:id="givenAmountField" layoutX="614.0" layoutY="408.0" onKeyTyped="#givenAmount" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="408.0" />
       <Label layoutX="489.0" layoutY="402.0" prefHeight="37.0" prefWidth="87.0" text="Given Amount" AnchorPane.rightAnchor="214.0" AnchorPane.topAnchor="402.0" />
-      <Button layoutX="517.0" layoutY="470.0" mnemonicParsing="false" text="Print" AnchorPane.rightAnchor="219.0" AnchorPane.topAnchor="470.0">
+      <Label layoutX="489.0" layoutY="433.0" prefHeight="37.0" prefWidth="87.0" text="Remaining" AnchorPane.rightAnchor="214.0" AnchorPane.topAnchor="433.0" />
+      <Button layoutX="520.0" layoutY="483.0" mnemonicParsing="false" onAction="#printRecipt" text="Print" AnchorPane.rightAnchor="214.0" AnchorPane.topAnchor="483.0">
          <graphic>
             <FontAwesomeIcon iconName="PRINT" />
          </graphic>
       </Button>
-      <Button layoutX="628.0" layoutY="470.0" mnemonicParsing="false" text="Clear" AnchorPane.rightAnchor="108.0" AnchorPane.topAnchor="470.0">
+      <Button layoutX="628.0" layoutY="483.0" mnemonicParsing="false" onAction="#clearScreen" text="Clear" AnchorPane.rightAnchor="105.0" AnchorPane.topAnchor="483.0">
          <graphic>
             <FontAwesomeIcon iconName="CLOSE" />
+         </graphic>
+      </Button>
+      <TextField fx:id="remainingField" layoutX="617.0" layoutY="439.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="439.0" />
+      <TextField fx:id="findItem" layoutX="235.0" layoutY="169.0" onKeyTyped="#sortItem" AnchorPane.leftAnchor="235.0" AnchorPane.topAnchor="169.0" />
+      <Button fx:id="btnClose" layoutX="401.0" layoutY="169.0" mnemonicParsing="false" onAction="#closeFind" style="-fx-background-color: black; -fx-background-radius: 20px;" textFill="WHITE" AnchorPane.leftAnchor="401.0" AnchorPane.topAnchor="169.0">
+         <graphic>
+            <FontAwesomeIcon fill="WHITE" iconName="REMOVE" />
          </graphic>
       </Button>
    </children>

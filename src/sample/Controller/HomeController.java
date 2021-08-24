@@ -18,6 +18,22 @@ public class HomeController implements Initializable {
     private AnchorPane home;
 
     @FXML
+    void aboutApp(ActionEvent event) {
+
+    }
+
+    @FXML
+    void addEmployee(ActionEvent event) {
+
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/sample/FXML/AddEmployee.fxml"));
+            home.getChildren().clear();
+            home.getChildren().add(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
     void btnSaleClicked(ActionEvent event) {
 
 
@@ -42,6 +58,27 @@ public class HomeController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+    }
+
+
+    @FXML
+    void saleDetail(ActionEvent event) {
+
+    }
+
+    @FXML
+    void setting(ActionEvent event) {
+
+    }
+
+    @FXML
+    void showEmployee(ActionEvent event) {
+
+    }
+
+    @FXML
+    void stockDetail(ActionEvent event) {
 
     }
 
