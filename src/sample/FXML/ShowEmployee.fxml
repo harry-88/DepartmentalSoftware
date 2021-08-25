@@ -40,14 +40,14 @@
         </rowConstraints>
          <children>
             <Label prefHeight="32.0" prefWidth="140.0" text="Employee Name" />
-            <TextField fx:id="employeeNameField" GridPane.columnIndex="1" />
-            <TextField fx:id="employeePositionField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="employeeSalaryField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="employeeGenderField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="employeeDobField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField fx:id="employeeNumberField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <TextField fx:id="employeeAddressField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <TextField fx:id="employeeEmailField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <TextField fx:id="employeeNameField" editable="false" GridPane.columnIndex="1" />
+            <TextField fx:id="employeePositionField" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="employeeSalaryField" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="employeeGenderField" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="employeeDobField" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="employeeNumberField" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="employeeAddressField" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="employeeEmailField" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <Label prefHeight="32.0" prefWidth="140.0" text="Employee Position" GridPane.rowIndex="1" />
             <Label prefHeight="32.0" prefWidth="140.0" text="Employee Salary" GridPane.rowIndex="2" />
             <Label prefHeight="32.0" prefWidth="140.0" text="Employee Gender" GridPane.rowIndex="3" />

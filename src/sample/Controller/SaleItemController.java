@@ -11,6 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.util.converter.IntegerStringConverter;
 import sample.Database.DatabaseConfig;
 import sample.Database.DatabaseHandler;
 import sample.ModelClasses.Stoke;
@@ -86,6 +87,7 @@ public class SaleItemController  implements Initializable{
                     itemQtyCol.setCellValueFactory(new PropertyValueFactory<Stoke, String>("itemQuantity"));
                     itemPriceCol.setCellValueFactory(new PropertyValueFactory<Stoke, String>("itemRetailPrice"));
 
+                    priceCalculation();
                     itemQtyField.setText(tableView.getItems().size() + "");
                     double price = Double.parseDouble(totalAmountField.getText());
                     price += Double.parseDouble(stoke.getItemRetailPrice());
@@ -117,6 +119,7 @@ public class SaleItemController  implements Initializable{
                             itemQtyCol.setCellValueFactory(new PropertyValueFactory<Stoke, String>("itemQuantity"));
                             itemPriceCol.setCellValueFactory(new PropertyValueFactory<Stoke, String>("itemRetailPrice"));
 
+                            priceCalculation();
 
                         }
 
@@ -130,6 +133,8 @@ public class SaleItemController  implements Initializable{
                         price += Double.parseDouble(stoke.getItemRetailPrice());
                         totalAmountField.setText(price + "");
 
+
+                        priceCalculation();
 
                         tableView.getItems().add(stoke);
                         itemNameCol.setCellValueFactory(new PropertyValueFactory<Stoke, String>("itemName"));
@@ -149,14 +154,7 @@ public class SaleItemController  implements Initializable{
     void clearScreen(ActionEvent event) {
 
         tableView.getItems().clear();
-        totalAmountField.clear();
-        discountField.clear();
-        extraChargesField.clear();
-        taxAmountField.clear();
-        netAmountField.clear();
-        itemQtyField.clear();
-        givenAmountField.clear();
-        remainingField.clear();
+        clear();
 
     }
 
@@ -175,11 +173,23 @@ public class SaleItemController  implements Initializable{
     @FXML
     void extraCharges(KeyEvent event) {
 
+        priceCalculation();
 
-        netAmountField.setText((Double.parseDouble(netAmountField.getText()) + Double.parseDouble(extraChargesField.getText()))+"");
 
     }
 
+    public void priceCalculation()
+    {
+
+        double netPrice = Double.parseDouble(totalAmountField.getText()) + Double.parseDouble(extraChargesField.getText());
+
+        netPrice -= netPrice*(Double.parseDouble(discountField.getText())/100);
+
+        System.out.println("total amount is "+netPrice);
+
+        System.out.println("net price is "+netPrice);
+        netAmountField.setText(netPrice+"");
+    }
 
     @FXML
     void discount(KeyEvent event) {
@@ -220,9 +230,8 @@ public class SaleItemController  implements Initializable{
 
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        databaseHandler = new DatabaseHandler(DatabaseConfig.getConnection());
+    public void clear()
+    {
 
         System.out.println("table view size "+tableView.getItems().size());
         totalAmountField.setText("0.0");
@@ -231,7 +240,13 @@ public class SaleItemController  implements Initializable{
         extraChargesField.setText("0.0");
         remainingField.setText("0.0");
         taxAmountField.setText("0.0");
-        discountField.setText("0.0");
+        discountField.setText("0");
+    }
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        databaseHandler = new DatabaseHandler(DatabaseConfig.getConnection());
+
+        clear();
 
         findItem.setVisible(false);
         btnClose.setVisible(false);

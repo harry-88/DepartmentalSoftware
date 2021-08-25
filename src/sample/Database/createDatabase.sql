@@ -14,3 +14,20 @@ create table Stock(
     stockDate varchar(30) not null
     
 );
+
+create table employee(
+
+
+    employeeID int auto increment ,
+    employeeName varchar(20) not null,
+    employeeAddress varchar(40) not null,
+    employeeNumber varchar(20) not null,
+    employeeEmail  varchar(30),
+    employeeDob varchar (30) not null,
+    employeeGender varchar (7) not null,
+    employeePosition varchar (30) not null ,
+    employeeSalary varchar (30) not null,
+    employeePassword varchar (30) not null
+);
+
+select * from employee;

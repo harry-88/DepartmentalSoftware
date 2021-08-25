@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
@@ -26,6 +28,13 @@
       <RadioButton fx:id="female" layoutX="504.0" layoutY="245.0" mnemonicParsing="false" text="Female" toggleGroup="$gender" AnchorPane.leftAnchor="504.0" AnchorPane.topAnchor="245.0" />
       <ComboBox fx:id="positionCombo" layoutX="75.0" layoutY="287.0" prefHeight="25.0" prefWidth="182.0" promptText="employee position" />
       <TextField fx:id="salaryField" layoutX="413.0" layoutY="287.0" prefHeight="25.0" prefWidth="182.0" promptText="Employee Salary" AnchorPane.leftAnchor="413.0" AnchorPane.topAnchor="287.0" />
+      <PasswordField fx:id="passwordField" layoutX="75.0" layoutY="335.0" onKeyReleased="#showPassFun" prefHeight="25.0" prefWidth="157.0" AnchorPane.leftAnchor="75.0" AnchorPane.topAnchor="335.0" />
+      <Button layoutX="234.0" layoutY="335.0" mnemonicParsing="false" onAction="#ShowPassword" style="-fx-background-color: TRANSPARENT;" AnchorPane.leftAnchor="234.0" AnchorPane.topAnchor="335.0">
+         <graphic>
+            <FontAwesomeIcon iconName="EYE" />
+         </graphic>
+      </Button>
       <Button layoutX="286.0" layoutY="393.0" mnemonicParsing="false" onAction="#addEmployee" prefHeight="25.0" prefWidth="105.0" style="-fx-border-color: black;" text="Add Employee" />
+      <Label fx:id="showPassLabel" layoutX="234.0" layoutY="360.0" />
    </children>
 </AnchorPane>

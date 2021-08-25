@@ -1,5 +1,6 @@
 package sample.Database;
 
+import sample.ModelClasses.Employee;
 import sample.ModelClasses.Stoke;
 
 import java.sql.Connection;
@@ -108,5 +109,51 @@ public class DatabaseHandler {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public boolean addEmployee(Employee employee)
+    {
+
+        String query = "INSERT INTO employee(employeeName,employeeAddress,employeeNumber" +
+                ",employeeEmail,employeeDob,employeeGender,employeePosition,employeeSalary,employeePassword)VALUES(?,?,?,?,?,?,?,?,?)";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1,employee.getEmployeeName());
+            preparedStatement.setString(2,employee.getEmployeeAddress());
+            preparedStatement.setString(3,employee.getEmployeeNumber());
+            preparedStatement.setString(4,employee.getEmployeeEmail());
+            preparedStatement.setString(5,employee.getEmployeeDob());
+            preparedStatement.setString(6,employee.getEmployeeGender());
+            preparedStatement.setString(7,employee.getEmployeePosition());
+            preparedStatement.setString(8,employee.getEmployeeSalary());
+            preparedStatement.setString(9,employee.getEmployeePassword());
+            if (!preparedStatement.execute())
+                return true;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
+
+    public ArrayList<Employee> getAllEmployee()
+    {
+        ArrayList<Employee> itemArrayList = new ArrayList<>();
+        String query = "SELECT * FROM employee" ;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet != null && resultSet.next() ){
+                Employee item = new Employee(resultSet.getString(1),resultSet.getString(2),resultSet.getString(3),
+                        resultSet.getString(4), resultSet.getString(5),resultSet.getString(6),
+                        resultSet.getString(7),resultSet.getString(8),resultSet.getString(9),resultSet.getString(10));
+
+                itemArrayList.add(item);
+
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return itemArrayList;
     }
 }
