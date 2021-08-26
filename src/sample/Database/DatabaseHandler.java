@@ -156,4 +156,18 @@ public class DatabaseHandler {
         }
         return itemArrayList;
     }
+
+    public boolean deleteEmployee(int id)
+    {
+        String query = "DELETE FROM employee WHERE employeeID=?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1,id+"");
+            if(!preparedStatement.execute())
+                return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

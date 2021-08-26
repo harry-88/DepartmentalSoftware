@@ -18,7 +18,7 @@ create table Stock(
 create table employee(
 
 
-    employeeID int auto increment ,
+    employeeID int  auto_increment primary key,
     employeeName varchar(20) not null,
     employeeAddress varchar(40) not null,
     employeeNumber varchar(20) not null,
