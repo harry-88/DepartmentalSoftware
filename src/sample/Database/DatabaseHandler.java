@@ -170,4 +170,18 @@ public class DatabaseHandler {
         }
         return false;
     }
+
+    public boolean deleteStock(String barcode)
+    {
+        String query = "DELETE FROM stock WHERE barcode=?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1,barcode);
+            if(!preparedStatement.execute())
+                return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

@@ -24,7 +24,6 @@
             <items>
               <MenuItem mnemonicParsing="false" onAction="#findItem" text="Find Item" />
                   <MenuItem mnemonicParsing="false" onAction="#clearScreen" text="Clear" />
-                  <MenuItem mnemonicParsing="false" onAction="#closeWindow" text="Close" />
             </items>
           </Menu>
         </menus>
@@ -84,11 +83,11 @@
                <GridPane.margin>
                   <Insets bottom="10.0" />
                </GridPane.margin></TextField>
-            <TextField fx:id="extraChargesField" onKeyPressed="#extraCharges" prefHeight="52.0" prefWidth="136.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <TextField fx:id="extraChargesField" onKeyReleased="#extraCharges" prefHeight="52.0" prefWidth="136.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets bottom="10.0" />
                </GridPane.margin></TextField>
-            <TextField fx:id="discountField" onKeyPressed="#discount" prefHeight="52.0" prefWidth="136.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <TextField fx:id="discountField" onKeyReleased="#discount" prefHeight="52.0" prefWidth="136.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets bottom="10.0" />
                </GridPane.margin></TextField>
@@ -104,7 +103,7 @@
       </GridPane>
       <Separator layoutX="489.0" layoutY="363.0" prefHeight="7.0" prefWidth="277.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="363.0" />
       <Label layoutX="489.0" layoutY="370.0" prefHeight="37.0" prefWidth="87.0" text="Transection" AnchorPane.rightAnchor="214.0" AnchorPane.topAnchor="370.0" />
-      <TextField fx:id="givenAmountField" layoutX="614.0" layoutY="408.0" onKeyTyped="#givenAmount" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="408.0" />
+      <TextField fx:id="givenAmountField" layoutX="614.0" layoutY="408.0" onKeyReleased="#givenAmount" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="408.0" />
       <Label layoutX="489.0" layoutY="402.0" prefHeight="37.0" prefWidth="87.0" text="Given Amount" AnchorPane.rightAnchor="214.0" AnchorPane.topAnchor="402.0" />
       <Label layoutX="489.0" layoutY="433.0" prefHeight="37.0" prefWidth="87.0" text="Remaining" AnchorPane.rightAnchor="214.0" AnchorPane.topAnchor="433.0" />
       <Button layoutX="520.0" layoutY="483.0" mnemonicParsing="false" onAction="#printRecipt" text="Print" AnchorPane.rightAnchor="214.0" AnchorPane.topAnchor="483.0">
@@ -118,7 +117,7 @@
          </graphic>
       </Button>
       <TextField fx:id="remainingField" layoutX="617.0" layoutY="439.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="439.0" />
-      <TextField fx:id="findItem" layoutX="235.0" layoutY="169.0" onKeyTyped="#sortItem" AnchorPane.leftAnchor="235.0" AnchorPane.topAnchor="169.0" />
+      <TextField fx:id="findItem" layoutX="235.0" layoutY="169.0" onKeyReleased="#sortItem" AnchorPane.leftAnchor="235.0" AnchorPane.topAnchor="169.0" />
       <Button fx:id="btnClose" layoutX="401.0" layoutY="169.0" mnemonicParsing="false" onAction="#closeFind" style="-fx-background-color: black; -fx-background-radius: 20px;" textFill="WHITE" AnchorPane.leftAnchor="401.0" AnchorPane.topAnchor="169.0">
          <graphic>
             <FontAwesomeIcon fill="WHITE" iconName="REMOVE" />

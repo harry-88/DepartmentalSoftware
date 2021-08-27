@@ -23,19 +23,13 @@
               <menus>
                 <Menu mnemonicParsing="false" text="Home">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="New Window" />
-                        <MenuItem mnemonicParsing="false" text="Stock Window" />
-                        <MenuItem mnemonicParsing="false" text="Close" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="File">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Delete" />
+                    <MenuItem mnemonicParsing="false" onAction="#newWindow" text="New Window" />
+                        <MenuItem mnemonicParsing="false" onAction="#close" text="Close" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="About" />
+                    <MenuItem mnemonicParsing="false" onAction="#aboutApp" text="About" />
                   </items>
                 </Menu>
               </menus>
@@ -127,15 +121,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Button layoutX="307.0" layoutY="62.0" mnemonicParsing="false" onAction="#stockDetail" style="-fx-background-color: transparent;" text="Stock Detail">
-               <graphic>
-                  <ImageView fitHeight="24.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/home.png" />
-                     </image>
-                  </ImageView>
-               </graphic></Button>
-            <Button layoutX="307.0" layoutY="89.0" mnemonicParsing="false" onAction="#saleDetail" style="-fx-background-color: transparent;" text="Sale Detail">
+            <Button layoutX="314.0" layoutY="72.0" mnemonicParsing="false" onAction="#saleDetail" style="-fx-background-color: transparent;" text="Sale Detail">
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
                      <image>

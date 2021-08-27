@@ -11,6 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
 import sample.Database.DatabaseConfig;
 import sample.Database.DatabaseHandler;
@@ -153,6 +154,12 @@ public class SaleItemController  implements Initializable{
     @FXML
     void clearScreen(ActionEvent event) {
 
+        for (int i = 0;i<tableView.getItems().size();i++)
+        {
+            int quantity = Integer.parseInt(databaseHandler.getCurrantStokeByBarcode(tableView.getItems().get(i).getItemBarcode()).getItemQuantity()) -
+                    Integer.parseInt(tableView.getItems().get(i).getItemQuantity());
+            databaseHandler.updateStockQuantity(quantity,tableView.getItems().get(i).getItemBarcode());
+        }
         tableView.getItems().clear();
         clear();
 
@@ -194,8 +201,9 @@ public class SaleItemController  implements Initializable{
     @FXML
     void discount(KeyEvent event) {
 
+        double amountToSubtract = (Double.parseDouble(netAmountField.getText()) * Double.parseDouble(discountField.getText()))/100;
         if (Double.parseDouble(discountField.getText()) <= 100)
-            netAmountField.setText(((Double.parseDouble(netAmountField.getText()) * Double.parseDouble(discountField.getText()))/100)+"");
+            netAmountField.setText((Double.parseDouble(netAmountField.getText()) - amountToSubtract)+"");
         else
         {
             Alert alert = new Alert(Alert.AlertType.ERROR,"you have entered an in-valid discount");
@@ -216,7 +224,7 @@ public class SaleItemController  implements Initializable{
     @FXML
     void givenAmount(KeyEvent event) {
 
-        remainingField.setText(""+(Double.parseDouble(netAmountField.getText())-Double.parseDouble(givenAmountField.getText())));
+        remainingField.setText(""+(Double.parseDouble(givenAmountField.getText())-Double.parseDouble(netAmountField.getText())));
     }
 
     @FXML
@@ -227,6 +235,17 @@ public class SaleItemController  implements Initializable{
     @FXML
     void sortItem(KeyEvent event) {
 
+        for (int i = 0;i<tableView.getItems().size();i++)
+        {
+            if (tableView.getItems().get(i).getItemName().startsWith(findItem.getText().trim()) ||
+            tableView.getItems().get(i).getItemQuantity().startsWith(findItem.getText().trim())||
+            tableView.getItems().get(i).getItemRetailPrice().startsWith(findItem.getText().trim())){
+
+                Stoke stoke = tableView.getItems().get(i);
+                tableView.getItems().remove(i);
+                tableView.getItems().add(0,stoke);
+            }
+        }
 
     }
 
@@ -241,6 +260,7 @@ public class SaleItemController  implements Initializable{
         remainingField.setText("0.0");
         taxAmountField.setText("0.0");
         discountField.setText("0");
+        givenAmountField.setText("0.0");
     }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -258,25 +278,45 @@ public class SaleItemController  implements Initializable{
 
                 Stoke stoke = event.getRowValue();
 
+                Stoke stokeInDatabase = databaseHandler.getCurrantStokeByBarcode(stoke.getItemBarcode());
 
-                double price = Double.parseDouble(databaseHandler.getCurrantStokeByBarcode(stoke.getItemBarcode()).getItemRetailPrice());
+                double price = Double.parseDouble(stokeInDatabase.getItemRetailPrice());
                 double amountInField = Double.parseDouble(totalAmountField.getText());
 
-                if(Integer.parseInt(event.getNewValue()) > Integer.parseInt(event.getOldValue())) {
-                    amountInField -= Double.parseDouble(stoke.getItemRetailPrice());//the quantity present in textField
-                    totalAmountField.setText(amountInField + "");//
+                if ((Integer.parseInt(stokeInDatabase.getItemQuantity()))>=Integer.parseInt(event.getNewValue()))
+                {
+                    if (Integer.parseInt(event.getNewValue()) == 0) {
+                        double totalAmount = Double.parseDouble(tableView.getItems().get(tableView.getSelectionModel().getSelectedIndex()).getItemRetailPrice());
+                        tableView.getItems().remove(tableView.getSelectionModel().getSelectedIndex());
+                        totalAmountField.setText((Double.parseDouble(totalAmountField.getText()) - totalAmount) + "");
 
-                    int qty = Integer.parseInt(event.getNewValue());
-                    price = price * qty;
-                    stoke.setItemRetailPrice(price + "");
-                    double totalPrice = Double.parseDouble(totalAmountField.getText());
-                    totalPrice += price;
-                    totalAmountField.setText(totalPrice + "");
-                    stoke.setItemRetailPrice(price+"");
+                        priceCalculation();
+                    } else if (Integer.parseInt(event.getNewValue()) > Integer.parseInt(event.getOldValue())) {
+                        amountInField -= Double.parseDouble(stoke.getItemRetailPrice());//the quantity present in textField
+                        totalAmountField.setText(amountInField + "");//
 
-                    stoke.setItemQuantity(event.getNewValue());
-                    tableView.getItems().remove(stoke);
-                    tableView.getItems().add(stoke);
+                        int qty = Integer.parseInt(event.getNewValue());
+                        price = price * qty;
+                        stoke.setItemRetailPrice(price + "");
+                        double totalPrice = Double.parseDouble(totalAmountField.getText());
+                        totalPrice += price;
+                        totalAmountField.setText(totalPrice + "");
+                        stoke.setItemRetailPrice(price + "");
+
+                        stoke.setItemQuantity(event.getNewValue());
+                        tableView.getItems().remove(stoke);
+                        tableView.getItems().add(stoke);
+                        priceCalculation();
+                    }
+                }
+                else{
+                    Alert alert = new Alert(Alert.AlertType.WARNING,"This item have less quantity from the quantity that you entered");
+                    alert.setHeaderText(null);
+                    alert.showAndWait();
+                    stokeInDatabase.setItemQuantity(event.getOldValue());
+                    stokeInDatabase.setItemRetailPrice(event.getRowValue().getItemRetailPrice());
+                    tableView.getItems().add(tableView.getSelectionModel().getSelectedIndex(),stokeInDatabase);
+                    tableView.getItems().remove(tableView.getSelectionModel().getSelectedIndex());
                 }
             }
 

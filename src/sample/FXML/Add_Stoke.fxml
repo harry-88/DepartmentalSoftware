@@ -29,8 +29,6 @@
                   <TableColumn fx:id="itemRetailPriceCol" minWidth="0.0" prefWidth="141.0" text="RETAIL PRICE" />
               </columns>
             </TableView>
-            <Button layoutX="322.0" layoutY="267.0" mnemonicParsing="false" onAction="#removeItem" prefHeight="25.0" prefWidth="74.0" text="REMOVE" AnchorPane.bottomAnchor="67.0" AnchorPane.leftAnchor="322.0" AnchorPane.rightAnchor="388.0" AnchorPane.topAnchor="267.0" />
-            <Button layoutX="437.0" layoutY="267.0" mnemonicParsing="false" onAction="#updateItem" prefHeight="25.0" prefWidth="89.0" text="UPDATE" AnchorPane.bottomAnchor="67.0" AnchorPane.leftAnchor="437.0" AnchorPane.rightAnchor="258.0" AnchorPane.topAnchor="267.0" />
          </children>
          <BorderPane.margin>
             <Insets right="10.0" />

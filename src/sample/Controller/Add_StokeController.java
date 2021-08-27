@@ -3,10 +3,12 @@ package sample.Controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import sample.Database.DatabaseConfig;
@@ -58,31 +60,31 @@ public class Add_StokeController implements Initializable {
     private TableView<Stoke> tableview;
 
     @FXML
-    private TableColumn<String,String> itemNameCol;
+    private TableColumn<Stoke,String> itemNameCol;
 
     @FXML
-    private TableColumn<String,String> itemCompanyCol;
+    private TableColumn<Stoke,String> itemCompanyCol;
 
     @FXML
-    private TableColumn<String,String> itemQtyCol;
+    private TableColumn<Stoke,String> itemQtyCol;
 
     @FXML
-    private TableColumn<String,String> itemWeightCol;
+    private TableColumn<Stoke,String> itemWeightCol;
 
     @FXML
-    private TableColumn<String,String> itemBarcodeCol;
+    private TableColumn<Stoke,String> itemBarcodeCol;
 
     @FXML
-    private TableColumn<String,String> itemMfgCol;
+    private TableColumn<Stoke,String> itemMfgCol;
 
     @FXML
-    private TableColumn<String,String> itemExpCol;
+    private TableColumn<Stoke,String> itemExpCol;
 
     @FXML
-    private TableColumn<String,String> itemBuyPriceCol;
+    private TableColumn<Stoke,String> itemBuyPriceCol;
 
     @FXML
-    private TableColumn<String,String> itemRetailPriceCol;
+    private TableColumn<Stoke,String> itemRetailPriceCol;
 
 
     @FXML
@@ -153,29 +155,29 @@ public class Add_StokeController implements Initializable {
 
                         databaseHandler.AddStoke(stoke);
                         tableview.getItems().add(stoke);
-                        itemNameCol.setCellValueFactory(new PropertyValueFactory<String, String>("itemName"));
-                        itemCompanyCol.setCellValueFactory(new PropertyValueFactory<String, String>("itemCompany"));
-                        itemQtyCol.setCellValueFactory(new PropertyValueFactory<String, String>("itemQuantity"));
-                        itemBarcodeCol.setCellValueFactory(new PropertyValueFactory<String, String>("itemBarcode"));
-                        itemWeightCol.setCellValueFactory(new PropertyValueFactory<String, String>("itemWeight"));
-                        itemExpCol.setCellValueFactory(new PropertyValueFactory<String, String>("itemexpDate"));
-                        itemMfgCol.setCellValueFactory(new PropertyValueFactory<String, String>("itemmfgDate"));
-                        itemBuyPriceCol.setCellValueFactory(new PropertyValueFactory<String, String>("itembuyPrice"));
-                        itemRetailPriceCol.setCellValueFactory(new PropertyValueFactory<String, String>("itemRetailPrice"));
+                        itemNameCol.setCellValueFactory(new PropertyValueFactory<Stoke, String>("itemName"));
+                        itemCompanyCol.setCellValueFactory(new PropertyValueFactory<Stoke, String>("itemCompany"));
+                        itemQtyCol.setCellValueFactory(new PropertyValueFactory<Stoke, String>("itemQuantity"));
+                        itemBarcodeCol.setCellValueFactory(new PropertyValueFactory<Stoke, String>("itemBarcode"));
+                        itemWeightCol.setCellValueFactory(new PropertyValueFactory<Stoke, String>("itemWeight"));
+                        itemExpCol.setCellValueFactory(new PropertyValueFactory<Stoke, String>("itemexpDate"));
+                        itemMfgCol.setCellValueFactory(new PropertyValueFactory<Stoke, String>("itemmfgDate"));
+                        itemBuyPriceCol.setCellValueFactory(new PropertyValueFactory<Stoke, String>("itembuyPrice"));
+                        itemRetailPriceCol.setCellValueFactory(new PropertyValueFactory<Stoke, String>("itemRetailPrice"));
                     }
 
                 }else {
                     databaseHandler.AddStoke(stoke);
                     tableview.getItems().add(stoke);
-                    itemNameCol.setCellValueFactory(new PropertyValueFactory<String, String>("itemName"));
-                    itemCompanyCol.setCellValueFactory(new PropertyValueFactory<String, String>("itemCompany"));
-                    itemQtyCol.setCellValueFactory(new PropertyValueFactory<String, String>("itemQuantity"));
-                    itemBarcodeCol.setCellValueFactory(new PropertyValueFactory<String, String>("itemBarcode"));
-                    itemWeightCol.setCellValueFactory(new PropertyValueFactory<String, String>("itemWeight"));
-                    itemExpCol.setCellValueFactory(new PropertyValueFactory<String, String>("itemexpDate"));
-                    itemMfgCol.setCellValueFactory(new PropertyValueFactory<String, String>("itemmfgDate"));
-                    itemBuyPriceCol.setCellValueFactory(new PropertyValueFactory<String, String>("itembuyPrice"));
-                    itemRetailPriceCol.setCellValueFactory(new PropertyValueFactory<String, String>("itemRetailPrice"));
+                    itemNameCol.setCellValueFactory(new PropertyValueFactory<Stoke, String>("itemName"));
+                    itemCompanyCol.setCellValueFactory(new PropertyValueFactory<Stoke, String>("itemCompany"));
+                    itemQtyCol.setCellValueFactory(new PropertyValueFactory<Stoke, String>("itemQuantity"));
+                    itemBarcodeCol.setCellValueFactory(new PropertyValueFactory<Stoke, String>("itemBarcode"));
+                    itemWeightCol.setCellValueFactory(new PropertyValueFactory<Stoke, String>("itemWeight"));
+                    itemExpCol.setCellValueFactory(new PropertyValueFactory<Stoke, String>("itemexpDate"));
+                    itemMfgCol.setCellValueFactory(new PropertyValueFactory<Stoke, String>("itemmfgDate"));
+                    itemBuyPriceCol.setCellValueFactory(new PropertyValueFactory<Stoke, String>("itembuyPrice"));
+                    itemRetailPriceCol.setCellValueFactory(new PropertyValueFactory<Stoke, String>("itemRetailPrice"));
                 }
             }
         }
@@ -190,10 +192,6 @@ public class Add_StokeController implements Initializable {
     }
 
 
-    @FXML
-    void removeItem(ActionEvent event) {
-
-    }
 
     public void clearEnteredFields()
     {
@@ -210,11 +208,6 @@ public class Add_StokeController implements Initializable {
         itemweightField.clear();
     }
 
-    @FXML
-    void updateItem(ActionEvent event) {
-
-    }
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -226,16 +219,39 @@ public class Add_StokeController implements Initializable {
         );
 
         tableview.setItems(list);
+        tableview.setEditable(true);
 
-        itemNameCol.setCellValueFactory(new PropertyValueFactory<String,String>("itemName"));
-        itemCompanyCol.setCellValueFactory(new PropertyValueFactory<String,String>("itemCompany"));
-        itemQtyCol.setCellValueFactory(new PropertyValueFactory<String,String>("itemQuantity"));
-        itemBarcodeCol.setCellValueFactory(new PropertyValueFactory<String,String>("itemBarcode"));
-        itemWeightCol.setCellValueFactory(new PropertyValueFactory<String,String>("itemWeight"));
-        itemExpCol.setCellValueFactory(new PropertyValueFactory<String,String>("itemexpDate"));
-        itemMfgCol.setCellValueFactory(new PropertyValueFactory<String,String>("itemmfgDate"));
-        itemBuyPriceCol.setCellValueFactory(new PropertyValueFactory<String,String>("itembuyPrice"));
-        itemRetailPriceCol.setCellValueFactory(new PropertyValueFactory<String,String>("itemRetailPrice"));
+        itemNameCol.setCellValueFactory(new PropertyValueFactory<Stoke,String>("itemName"));
+        itemCompanyCol.setCellValueFactory(new PropertyValueFactory<Stoke,String>("itemCompany"));
+        itemQtyCol.setCellValueFactory(new PropertyValueFactory<Stoke,String>("itemQuantity"));
+        itemQtyCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        itemQtyCol.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Stoke, String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Stoke, String> event) {
+                Stoke stoke = event.getRowValue();
+                if (Integer.parseInt(event.getNewValue()) > 0)
+                    databaseHandler.updateStockQuantity(Integer.parseInt(event.getNewValue()),stoke.getItemBarcode());
+                else if (Integer.parseInt(event.getNewValue()) == 0) {
+                    databaseHandler.deleteStock(stoke.getItemBarcode());
+                    tableview.getItems().remove(tableview.getSelectionModel().getSelectedIndex());
+                }
+                else{
+                    Alert alert = new Alert(Alert.AlertType.ERROR,"You have entered an invalid quantity");
+                    alert.setHeaderText(null);
+                    alert.showAndWait();
+                    tableview.getItems().add(stoke);
+                    tableview.getItems().remove(tableview.getSelectionModel().getSelectedIndex());
+                }
+
+            }
+        });
+
+        itemBarcodeCol.setCellValueFactory(new PropertyValueFactory<Stoke,String>("itemBarcode"));
+        itemWeightCol.setCellValueFactory(new PropertyValueFactory<Stoke,String>("itemWeight"));
+        itemExpCol.setCellValueFactory(new PropertyValueFactory<Stoke,String>("itemexpDate"));
+        itemMfgCol.setCellValueFactory(new PropertyValueFactory<Stoke,String>("itemmfgDate"));
+        itemBuyPriceCol.setCellValueFactory(new PropertyValueFactory<Stoke,String>("itembuyPrice"));
+        itemRetailPriceCol.setCellValueFactory(new PropertyValueFactory<Stoke,String>("itemRetailPrice"));
 
         ObservableList comboOption = FXCollections.observableArrayList(
                 new String[]{"gram","kilo-gram","letter","mili-letter"}
