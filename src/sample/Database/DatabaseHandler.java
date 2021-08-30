@@ -1,6 +1,7 @@
 package sample.Database;
 
 import sample.ModelClasses.Employee;
+import sample.ModelClasses.SaleDetail;
 import sample.ModelClasses.Stoke;
 
 import java.sql.Connection;
@@ -184,4 +185,106 @@ public class DatabaseHandler {
         }
         return false;
     }
+
+    public boolean addSaleDetail(SaleDetail saleDetail)
+    {
+
+        String query = "INSERT INTO saledetail(saleDate,saleTime,saleTotalQty" +
+                ",saleTotalAmount,saleExtraCharges,saleDiscount,saleNetAmount,saleGivenAmount)VALUES(?,?,?,?,?,?,?,?)";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1,saleDetail.getSaleDate());
+            preparedStatement.setString(2,saleDetail.getSaleTime());
+            preparedStatement.setString(3,saleDetail.getSaleTotalQty());
+            preparedStatement.setString(4,saleDetail.getSaleTotalAmount());
+            preparedStatement.setString(5,saleDetail.getSaleExtraCharges());
+            preparedStatement.setString(6,saleDetail.getSaleDiscount());
+            preparedStatement.setString(7,saleDetail.getSaleNetCharges());
+            preparedStatement.setString(8,saleDetail.getSaleGivenAmount());
+            if (!preparedStatement.execute())
+                return true;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
+
+    public ArrayList<SaleDetail> getSaleDetail()
+    {
+        ArrayList<SaleDetail> itemArrayList = new ArrayList<>();
+        String query = "SELECT * FROM saledetail" ;
+        try {
+
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet != null && resultSet.next() ){
+                SaleDetail saleDetail = new SaleDetail(resultSet.getString(1),resultSet.getString(2),resultSet.getString(3),
+                        resultSet.getString(4),resultSet.getString(5),resultSet.getString(6),resultSet.getString(7)
+                        ,resultSet.getString(8),resultSet.getString(9)
+                );
+
+                itemArrayList.add(saleDetail);
+
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return itemArrayList;
+    }
+
+    public boolean addSoldItem(Stoke stoke)
+    {
+
+        String query = "INSERT INTO soldItem(barcode,itemname,itemcompany" +
+                ",itemquantity,weight,mfgDate,expDate,buyPrice,retailPrice,stockDate,measurein)VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1,stoke.getItemBarcode());
+            preparedStatement.setString(2,stoke.getItemName());
+            preparedStatement.setString(3,stoke.getItemCompany());
+            preparedStatement.setString(4,stoke.getItemQuantity());
+            preparedStatement.setString(5,stoke.getItemWeight());
+            preparedStatement.setString(6,stoke.getItemmfgDate());
+            preparedStatement.setString(7,stoke.getItemexpDate());
+            preparedStatement.setString(8,stoke.getItembuyPrice());
+            preparedStatement.setString(9,stoke.getItemRetailPrice());
+            preparedStatement.setString(10,stoke.getAddDate());
+            preparedStatement.setString(11,stoke.getMeasurein());
+            if (!preparedStatement.execute())
+                return true;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
+
+
+    public ArrayList<Stoke> getAllSoldItems(String time)
+    {
+
+        ArrayList<Stoke> itemArrayList = new ArrayList<>();
+        String query = "SELECT * FROM solditem WHERE stockDate=?" ;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1,time);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet != null && resultSet.next() ){
+                Stoke item = new Stoke(resultSet.getString(2),resultSet.getString(4),
+                        resultSet.getString(3),resultSet.getString(1)
+                        ,resultSet.getString(5),resultSet.getString(6),
+                        resultSet.getString(8),resultSet.getString(7),resultSet.getString(9),
+                        resultSet.getString(10),resultSet.getString(11)
+                );
+
+                itemArrayList.add(item);
+
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return itemArrayList;
+    }
+
 }

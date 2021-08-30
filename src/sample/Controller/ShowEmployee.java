@@ -16,7 +16,6 @@ import sample.Database.DatabaseHandler;
 import sample.ModelClasses.Employee;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ShowEmployee implements Initializable {
@@ -152,5 +151,8 @@ public class ShowEmployee implements Initializable {
         employeePositionCol.setCellValueFactory(new PropertyValueFactory<Employee,String>("employeePosition"));
         employeeIdCol.setCellValueFactory(new PropertyValueFactory<Employee,String>("employeeId"));
 
+    }
+
+    public static class SaleDetailController {
     }
 }

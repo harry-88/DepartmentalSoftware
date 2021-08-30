@@ -81,7 +81,6 @@ public class AddEmployeeController implements Initializable {
                 gender = "male";
             else
                 gender = "female";
-            System.out.println("date is "+date);
             Employee employee = new Employee("1",employeeNameField.getText(),employeeAddressField.getText(),employeeNumberField.getText(),
                     emploeeEmailField.getText(),date,gender,positionCombo.getValue(),salaryField.getText(),passwordField.getText());
             databaseHandler.addEmployee(employee);

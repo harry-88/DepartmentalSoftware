@@ -30,6 +30,33 @@ create table employee(
     employeePassword varchar (30) not null
 );
 
+create table saledetail(
+	saleID int primary key auto_increment,
+    saleDate varchar(25) not null,
+    saleTime varchar(25) not null,
+    saleTotalQty varchar(25) not null,
+    saleTotalAmount varchar(25) not null,
+    saleExtraCharges varchar(25) not null,
+    saleDiscount varchar(25) not null,
+    saleNetAmount varchar(25) not null,
+    saleGivenAmount varchar(25) not null
+);
+
+create table soldItem(
+    barcode varchar(15) not null primary key,
+    itemname varchar(20) not null,
+    itemcompany varchar(20) not null,
+    itemquantity varchar(20) not null,
+    weight varchar(20) not null,
+    measurein varchar(20) not null,
+    mfgDate date not null,
+    expDate date not null,
+    buyPrice varchar(20) not null,
+    retailPrice varchar(20) not null,
+    stockDate varchar(30) not null
+    
+);
 select * from employee;
 select * from stock;
+select * from saledetail;
 

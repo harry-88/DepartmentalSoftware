@@ -15,9 +15,16 @@ import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
 import sample.Database.DatabaseConfig;
 import sample.Database.DatabaseHandler;
+import sample.ModelClasses.SaleDetail;
 import sample.ModelClasses.Stoke;
+import sun.util.resources.LocaleData;
 
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.Format;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class SaleItemController  implements Initializable{
@@ -88,11 +95,11 @@ public class SaleItemController  implements Initializable{
                     itemQtyCol.setCellValueFactory(new PropertyValueFactory<Stoke, String>("itemQuantity"));
                     itemPriceCol.setCellValueFactory(new PropertyValueFactory<Stoke, String>("itemRetailPrice"));
 
-                    priceCalculation();
                     itemQtyField.setText(tableView.getItems().size() + "");
                     double price = Double.parseDouble(totalAmountField.getText());
                     price += Double.parseDouble(stoke.getItemRetailPrice());
                     totalAmountField.setText(price + "");
+                    priceCalculation();
                 }
                 else
                 {
@@ -119,8 +126,8 @@ public class SaleItemController  implements Initializable{
                             itemNameCol.setCellValueFactory(new PropertyValueFactory<Stoke, String>("itemName"));
                             itemQtyCol.setCellValueFactory(new PropertyValueFactory<Stoke, String>("itemQuantity"));
                             itemPriceCol.setCellValueFactory(new PropertyValueFactory<Stoke, String>("itemRetailPrice"));
-
                             priceCalculation();
+
 
                         }
 
@@ -135,12 +142,11 @@ public class SaleItemController  implements Initializable{
                         totalAmountField.setText(price + "");
 
 
-                        priceCalculation();
-
                         tableView.getItems().add(stoke);
                         itemNameCol.setCellValueFactory(new PropertyValueFactory<Stoke, String>("itemName"));
                         itemQtyCol.setCellValueFactory(new PropertyValueFactory<Stoke, String>("itemQuantity"));
                         itemPriceCol.setCellValueFactory(new PropertyValueFactory<Stoke, String>("itemRetailPrice"));
+                        priceCalculation();
                     }
                 }
 
@@ -154,12 +160,7 @@ public class SaleItemController  implements Initializable{
     @FXML
     void clearScreen(ActionEvent event) {
 
-        for (int i = 0;i<tableView.getItems().size();i++)
-        {
-            int quantity = Integer.parseInt(databaseHandler.getCurrantStokeByBarcode(tableView.getItems().get(i).getItemBarcode()).getItemQuantity()) -
-                    Integer.parseInt(tableView.getItems().get(i).getItemQuantity());
-            databaseHandler.updateStockQuantity(quantity,tableView.getItems().get(i).getItemBarcode());
-        }
+        updateQtyInDatabase();
         tableView.getItems().clear();
         clear();
 
@@ -188,13 +189,15 @@ public class SaleItemController  implements Initializable{
     public void priceCalculation()
     {
 
+        double totalAmount = 0.0;
+        for (int i = 0;i<tableView.getItems().size();i++)
+        {
+            totalAmount += Double.parseDouble(tableView.getItems().get(i).getItemRetailPrice());
+        }
+
         double netPrice = Double.parseDouble(totalAmountField.getText()) + Double.parseDouble(extraChargesField.getText());
 
-        netPrice -= netPrice*(Double.parseDouble(discountField.getText())/100);
-
-        System.out.println("total amount is "+netPrice);
-
-        System.out.println("net price is "+netPrice);
+        netPrice =netPrice -  netPrice*(Double.parseDouble(discountField.getText())/100);
         netAmountField.setText(netPrice+"");
     }
 
@@ -227,9 +230,46 @@ public class SaleItemController  implements Initializable{
         remainingField.setText(""+(Double.parseDouble(givenAmountField.getText())-Double.parseDouble(netAmountField.getText())));
     }
 
+    public void updateQtyInDatabase()
+    {
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        String time = dtf.format(now);
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MMM/dd/yyyy");
+        LocalDate date = LocalDate.now();
+        SaleDetail saleDetail = new SaleDetail("0",date+"",time,itemQtyField.getText(),totalAmountField.getText()
+                ,extraChargesField.getText(),discountField.getText(),netAmountField.getText(),givenAmountField.getText());
+
+        databaseHandler.addSaleDetail(saleDetail);
+
+        int quantityInTable = 0;
+        int quantityInDatabase = 0;
+        int quantity = 0;
+        for (int i = 0;i<tableView.getItems().size();i++)
+        {
+            quantityInTable = Integer.parseInt(tableView.getItems().get(i).getItemQuantity());
+            quantityInDatabase = Integer.parseInt(databaseHandler.getCurrantStokeByBarcode(tableView.getItems().get(i).getItemBarcode()).getItemQuantity());
+            if (quantityInDatabase>quantityInTable)
+                quantity = quantityInDatabase - quantityInTable;
+            else
+                quantity = quantityInTable - quantityInDatabase;
+
+            databaseHandler.updateStockQuantity(quantity,tableView.getItems().get(i).getItemBarcode());
+            databaseHandler.addSoldItem(new Stoke(tableView.getItems().get(i).getItemName(),tableView.getItems().get(i).getItemQuantity(),
+                    tableView.getItems().get(i).getItemCompany(),tableView.getItems().get(i).getItemBarcode()
+                    ,tableView.getItems().get(i).getItemWeight(),tableView.getItems().get(i).getMeasurein(),
+                    tableView.getItems().get(i).getItemexpDate(),tableView.getItems().get(i).getItemmfgDate(),
+                    tableView.getItems().get(i).getItembuyPrice(),tableView.getItems().get(i).getItemRetailPrice(),time));
+
+        }
+    }
+
     @FXML
     void printRecipt(ActionEvent event) {
 
+        updateQtyInDatabase();
+        clear();
     }
 
     @FXML

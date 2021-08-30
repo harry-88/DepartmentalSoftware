@@ -83,6 +83,15 @@ public class HomeController implements Initializable {
     @FXML
     void saleDetail(ActionEvent event) {
 
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/sample/FXML/SaleDetail.fxml"));
+
+            home.getChildren().clear();
+            home.getChildren().add(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @FXML
