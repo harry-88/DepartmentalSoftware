@@ -43,7 +43,7 @@ create table saledetail(
 );
 
 create table soldItem(
-    barcode varchar(15) not null primary key,
+    barcode varchar(15) not null ,
     itemname varchar(20) not null,
     itemcompany varchar(20) not null,
     itemquantity varchar(20) not null,
@@ -58,5 +58,6 @@ create table soldItem(
 );
 select * from employee;
 select * from stock;
+select * from solditem;
 select * from saledetail;
 
